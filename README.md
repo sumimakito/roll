@@ -4,6 +4,8 @@
 
 **R**esolve, **O**bserve, **L**oop until ready to **L**and.
 
+[![skills.sh](https://img.shields.io/badge/skills.sh-sumimakito%2Froll-black?style=flat)](https://skills.sh/sumimakito/roll)
+
 ROLL helps you resolve conflicts in a pull request, verify and/or test the resolution, observe PR checks and mergeability, and repeat until the PR is ready to merge.
 
 </div>
