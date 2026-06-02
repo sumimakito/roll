@@ -23,7 +23,7 @@ flowchart LR
     O -->|Ready| N[Notify]
 ```
 
-<sup>*</sup>**Advise:** The optional advisory suggests changes to reduce potential conflicts in the future.
+<sup>*</sup>**Advise:** The optional advisor suggests changes to reduce potential conflicts in the future.
 
 ## Usage
 
