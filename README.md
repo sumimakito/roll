@@ -14,6 +14,17 @@ ROLL helps you resolve conflicts in a pull request, verify and/or test the resol
 
 Although people say it is better to split the work and files, who can ensure everything is always clean and tidy? ROLL is here to help you hand off the PR and lean back until it's ready to merge, especially when you are working on a hot spot on a busy day.
 
+```mermaid
+flowchart LR
+    R[Resolve] --> A[Advise<sup>*</sup>]
+    A --> P[Push]
+    P --> O{Observe}
+    O -->|Conflict| R
+    O -->|Ready| N[Notify]
+```
+
+<sup>*</sup>**Advise:** The optional advisory suggests changes to reduce potential conflicts in the future.
+
 ## Usage
 
 Install ROLL with the skills.sh CLI:
