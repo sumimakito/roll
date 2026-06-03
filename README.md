@@ -70,22 +70,24 @@ full run.
 
 ## Structure
 
-Each directory under `skills/` is a standalone Open Agent Skill:
+The `roll-*` phase skills are nested under the top-level `roll` skill:
 
 ```text
 skills/
-  roll/SKILL.md
-  roll-advisor/SKILL.md
-  roll-notify/SKILL.md
-  roll-observe/SKILL.md
-  roll-push/SKILL.md
-  roll-resolve/SKILL.md
-  roll-verify/SKILL.md
+  roll/
+    SKILL.md
+    roll-advisor/SKILL.md
+    roll-notify/SKILL.md
+    roll-observe/SKILL.md
+    roll-push/SKILL.md
+    roll-resolve/SKILL.md
+    roll-verify/SKILL.md
 ```
 
-The `roll-*` skills are intentionally siblings, not nested subdirectories, so
-they can be discovered and invoked independently by agents that support Open
-Agent Skills.
+Following the Open Agent Skill pattern, a `SKILL.md` discovered at the shallower
+level shadows anything nested below it. Because `roll/SKILL.md` sits above the
+phase skills, the skills.sh installer surfaces only `roll` and bundles the
+`roll-*` skills along with it.
 
 ## License
 
