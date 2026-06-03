@@ -4,10 +4,28 @@ description: "Drive a GitHub pull request from conflicts or failing checks to me
 compatibility: Requires git, GitHub CLI (`gh`), GitHub repository access, and a coding-agent host that can run shell commands. Interactive selection UI is optional.
 ---
 
-# roll
+# ROLL
+
+**R**esolve, **O**bserve, **L**oop until ready to **L**and.
 
 Capped PR loop: resolve conflicts, optionally advise, verify, push,
 observe CI plus mergeability, repeat until merge-ready or stopped.
+
+## Why
+Splitting work and files cleanly is ideal but rarely guaranteed. roll lets you
+hand off the PR and lean back until it is ready to merge, especially on a busy
+day with a hot spot.
+
+```mermaid
+flowchart LR
+    R[Resolve] --> A[Advise<sup>*</sup>]
+    A --> P[Push]
+    P --> O{Observe}
+    O -->|Conflict| R
+    O -->|Ready| N[Notify]
+```
+
+<sup>*</sup>**Advise:** The optional advisor suggests changes to reduce potential conflicts in the future.
 
 ## Interaction
 Prefer interactive selection UI (`request_user_input` or host equivalent) for
