@@ -10,18 +10,15 @@ Capped PR loop: resolve conflicts, optionally advise, verify, push,
 observe CI plus mergeability, repeat until merge-ready or stopped.
 
 ## Interaction
-For fixed-choice questions, prefer available interactive UI (`request_user_input`,
-host selection prompts, etc.). Use it for setup groups, observe confirmations,
-retry/stop decisions, and advisor gates.
+Prefer interactive selection UI (`request_user_input` or host equivalent) for
+every fixed-choice prompt: setup, observe confirmations, retry/stop, advisor
+gates. If unavailable, ask plain text questions and note once that selection UI
+is off and how to enable it (a host exposing `request_user_input`).
 
-If interactive UI is unavailable, ask concise text questions and include this
-hint: "Interactive selection UI is unavailable in this agent/session. To enable
-it, use a coding-agent host or mode that exposes `request_user_input` or
-equivalent selection prompts; otherwise answer these choices in text."
-
-Setup UI must include every group below: target/integration, advisory,
-notification, and observe settings. Do not omit observe settings in previews or
-real runs. Do not re-prompt for settings already confirmed.
+Setup must cover all four groups — target/integration, advisory, notification,
+observe — and never omit observe. Skip settings already confirmed. Parenthesized
+names (e.g. `CONFLICT_POLL_INTERVAL`) are internal; phrase questions plainly and
+never print them.
 
 ## Setup
 Before mutating a branch:
@@ -33,9 +30,9 @@ Before mutating a branch:
 2. If head looks protected (`main`, `master`, `prod`, `production`, `release`,
    `develop`, `dev`, `release/*`, `hotfix/*`), require explicit extra
    confirmation. `roll-push` must re-check.
-3. Ask `STRATEGY`: `merge` or `rebase`. Detect repo convention and propose a
-   default, but never choose silently. `merge` uses normal push; `rebase`
-   rewrites history and later requires `--force-with-lease`.
+3. Ask which integration strategy (`STRATEGY`): `merge` or `rebase`. Detect repo
+   convention and propose a default, but never choose silently. `merge` uses
+   normal push; `rebase` rewrites history and later requires `--force-with-lease`.
 
 **Advisory settings**
 4. Ask advisor mode: `off` default, `on`, or `ask-each-time`.
@@ -45,9 +42,10 @@ Before mutating a branch:
    custom command supplied now, not read from environment.
 
 **Observe settings**
-6. Set `CONFLICT_POLL_INTERVAL`, default 10 min.
-7. Set `CONFIRM_EACH_OBSERVE`, default off. If on, pause after every observe
-   verdict before acting.
+6. Ask how often to poll the base for conflicts (`CONFLICT_POLL_INTERVAL`),
+   default 10 min.
+7. Ask whether to pause after each observe verdict before acting
+   (`CONFIRM_EACH_OBSERVE`), default off.
 
 ## Loop
 Caps: `MAX_ITERS` default 10; `MAX_WALL` default 60 min shared across the whole
