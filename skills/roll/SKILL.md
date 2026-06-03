@@ -30,7 +30,7 @@ every fixed-choice prompt: setup, observe confirmations, retry/stop, advisor
 gates. If unavailable, ask plain text questions and note once that selection UI
 is off and how to enable it (a host exposing `request_user_input`).
 
-Setup must cover all four groups — target/integration, advisory, notification,
+Setup must cover all four groups — target/reconciliation, advisory, notification,
 observe — and never omit observe. Skip settings already confirmed. Parenthesized
 names (e.g. `CONFLICT_POLL_INTERVAL`) are internal; phrase questions plainly and
 never print them.
@@ -38,16 +38,17 @@ never print them.
 ## Setup
 Before mutating a branch:
 
-**Target + integration**
+**Target + reconciliation**
 1. Detect target: `gh pr view --json number,headRefName,baseRefName,url`. Show
    PR, head, base, and URL; require confirmation or correction. If no PR exists,
    stop and ask whether to create one or use another target.
 2. If head looks protected (`main`, `master`, `prod`, `production`, `release`,
    `develop`, `dev`, `release/*`, `hotfix/*`), require explicit extra
    confirmation. `roll-push` must re-check.
-3. Ask which integration strategy (`STRATEGY`): `merge` or `rebase`. Detect repo
-   convention and propose a default, but never choose silently. `merge` uses
-   normal push; `rebase` rewrites history and later requires `--force-with-lease`.
+3. Ask how to reconcile the branch with base (`STRATEGY`): `merge` or `rebase`.
+   Detect repo convention and propose a default, but never choose silently.
+   `merge` uses normal push; `rebase` rewrites history and later requires
+   `--force-with-lease`.
 
 **Advisory settings**
 4. Ask advisor mode: `off` default, `on`, or `ask-each-time`.
@@ -58,7 +59,8 @@ Before mutating a branch:
 
 **Observe settings**
 6. Ask how often to poll the base for conflicts (`CONFLICT_POLL_INTERVAL`),
-   default 10 min.
+   default 10 min. Note that checks are watched live; this interval is only the
+   conflict backstop.
 7. Ask whether to pause after each observe verdict before acting
    (`CONFIRM_EACH_OBSERVE`), default off.
 

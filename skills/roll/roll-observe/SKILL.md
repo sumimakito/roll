@@ -11,6 +11,9 @@ Return one verdict: `green`, `failed`, `conflicted`, `review-blocked`, or
 reviews.
 
 ## Default Shape
+Tell the user once that checks are watched live while conflicts are polled, so
+the interval isn't read as the only mechanism.
+
 Run two concurrent processes:
 1. Checks watcher: `gh pr checks <pr> --watch`.
 2. Conflict poller every `CONFLICT_POLL_INTERVAL` default 10 min:
