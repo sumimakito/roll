@@ -8,9 +8,6 @@ compatibility: Requires git, GitHub CLI (`gh`), GitHub repository access, and a 
 
 **R**esolve, **O**bserve, **L**oop until ready to **L**and.
 
-Capped PR loop: resolve conflicts, optionally advise, verify, push,
-observe CI plus mergeability, repeat until merge-ready or stopped.
-
 ## Why
 Splitting work and files cleanly is ideal but rarely guaranteed. roll lets you
 hand off the PR and lean back until it is ready to merge, especially on a busy
